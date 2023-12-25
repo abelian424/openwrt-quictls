@@ -57,4 +57,5 @@ USER buildbot
 
 RUN mkdir -p ~/.local/share/zsh/plugins && \
   ln -s /usr/share/zsh/plugins/powerlevel10k ~/.local/share/zsh/plugins/ && \
-  echo "alias make='PERL5LIB=/workdir/openwrt/staging_dir/hostpkg/usr/lib/perl5/5.38.2/ make -j$(nproc)' && alias cp='cp -i'" >> ~/.zshrc
+  echo "alias make='make -j$(nproc)' && alias cp='cp -i'" >> ~/.zshrc
+#  echo "alias make='PERL5LIB=/workdir/openwrt/staging_dir/hostpkg/usr/lib/perl5/5.38.2/ make -j$(nproc)' && alias cp='cp -i'" >> ~/.zshrc
