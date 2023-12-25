@@ -1,0 +1,60 @@
+FROM alpine:latest
+
+ENV GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+WORKDIR /workdir
+
+RUN apk add \
+    'argp-standalone' \
+    'asciidoc' \
+    'bash' \
+    'bc' \
+    'binutils' \
+    'bzip2' \
+    'cdrkit' \
+    'coreutils' \
+    'diffutils' \
+    'elfutils-dev' \
+    'findutils' \
+    'flex' \
+    'g++' \
+    'gawk' \
+    'gettext' \
+    'git' \
+    'grep' \
+    'gzip' \
+    'intltool' \
+    'libxslt' \
+    'linux-headers' \
+    'musl-fts-dev' \
+    'musl-libintl' \
+    'musl-obstack-dev' \
+    'ncurses-dev' \
+    'openssl-dev' \
+    'patch' \
+    'perl' \
+    'python3-dev' \
+    'rsync' \
+    'unzip' \
+    'util-linux' \
+    'zlib-dev' \
+    'curl' 'build-base' 'wget' 'gnupg' 'tar' 'perl-utils' 'clang16' \
+    'nano' 'expat' 'zsh' 'zsh-theme-powerlevel10k' 'cunit' 'autoconf' 'automake' 'libtool'
+
+RUN curl -LO https://raw.githubusercontent.com/miyagawa/cpanminus/master/cpanm \
+    && chmod +x cpanm \
+    && ./cpanm App::cpanminus \
+    && rm -fr ./cpanm /root/.cpanm
+
+ENV PERL_CPANM_OPT --verbose --mirror https://cpan.metacpan.org --mirror-only
+RUN cpanm Digest::SHA Module::Signature && rm -rf ~/.cpanm
+ENV PERL_CPANM_OPT $PERL_CPANM_OPT --verify
+
+RUN ln -s '/usr/lib/libncurses.so' '/usr/lib/libtinfo.so' && \
+  addgroup 'buildbot' && \
+  adduser -s '/bin/bash' -G 'buildbot' -D 'buildbot'
+
+USER buildbot
+
+RUN mkdir -p ~/.local/share/zsh/plugins && \
+  ln -s /usr/share/zsh/plugins/powerlevel10k ~/.local/share/zsh/plugins/ && \
+  echo "aliasmake='PERL5LIB=/workdir/openwrt/staging_dir/hostpkg/usr/lib/perl5/5.38.2/ make -j$(nproc)' && alias cp='cp -i'" >> ~/.zshrc

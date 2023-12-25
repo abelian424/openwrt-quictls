@@ -1,0 +1,5 @@
+--- a/VERSION.dat
++++ b/VERSION.dat
+@@ -7,1 +7,1 @@
+-SHLIB_VERSION=81.3
++SHLIB_VERSION=3
