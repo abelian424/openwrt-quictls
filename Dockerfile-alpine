@@ -54,8 +54,17 @@ RUN ln -s '/usr/lib/libncurses.so' '/usr/lib/libtinfo.so' && \
   adduser -s '/bin/bash' -G 'buildbot' -D 'buildbot'
 
 USER buildbot
-
 RUN mkdir -p ~/.local/share/zsh/plugins && \
   ln -s /usr/share/zsh/plugins/powerlevel10k ~/.local/share/zsh/plugins/ && \
-  echo "alias make='make -j$(nproc)' && alias cp='cp -i'" >> ~/.zshrc
-#  echo "alias make='PERL5LIB=/workdir/openwrt/staging_dir/hostpkg/usr/lib/perl5/5.38.2/ make -j$(nproc)' && alias cp='cp -i'" >> ~/.zshrc
+  echo "alias make='make -j$(nproc)' && alias cp='cp -i'" >> ~/.zshrc \
+## These lines below are to automate the building of openssl, perl, nghttp3, ngtcp3, and libcurl.
+## Only uncomment after first customizing your build using updating feeds, and using `make menuconfig` or `make nconfig`.
+## Follow the guide here: https://openwrt.org/docs/guide-developer/toolchain/use-buildsystem
+#  && cd openwrt && \ ## change this directory to whatever the root of the openwrt directory is called
+#  make packages/libs/openssl/compile && \
+#  mkdir -p staging_dir/hostpkg/usr/lib/perl5/5.38.2 && \
+#  cp -r /usr/lib/perl5/core_perl/* staging_dir/hostpkg/usr/lib/perl5/5.38.2/ && \
+#  PERL5LIB=/workdir/openwrt/staging_dir/hostpkg/usr/lib/perl5/5.38.2/ make packages/feeds/perl/compile && \
+#  make packages/feeds/nghttp2/compile && make packages/feeds/nghttp3/compile && \
+#  make packages/feeds/ngtcp2/compile && \
+#  make packages/feeds/curl/compile
