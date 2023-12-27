@@ -58,7 +58,7 @@ RUN mkdir -p ~/.local/share/zsh/plugins && \
   ln -s /usr/share/zsh/plugins/powerlevel10k ~/.local/share/zsh/plugins/ && \
   echo "alias make='make -j$(nproc)' && alias cp='cp -i'" >> ~/.zshrc \
 ## These lines below are to automate the building of openssl, perl, nghttp3, ngtcp3, and libcurl.
-## Only uncomment after first customizing your build using updating feeds, and using `make menuconfig` or `make nconfig`.
+## Only uncomment after first customizing your build by updating feeds, and using `make menuconfig` or `make nconfig`.
 ## Follow the guide here: https://openwrt.org/docs/guide-developer/toolchain/use-buildsystem
 #  && cd openwrt && \ ## change this directory to whatever the root of the openwrt directory is called
 #  make packages/libs/openssl/compile && \
@@ -68,3 +68,4 @@ RUN mkdir -p ~/.local/share/zsh/plugins && \
 #  make packages/feeds/nghttp2/compile && make packages/feeds/nghttp3/compile && \
 #  make packages/feeds/ngtcp2/compile && \
 #  make packages/feeds/curl/compile
+## Do another `make` and, if there are no issues with your selection of packages, everything should compile successfully.
