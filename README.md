@@ -7,7 +7,7 @@ make package/libs/openssl/compile && \
 mkdir -p staging_dir/hostpkg/usr/lib/perl5/5.38.2 && \
 cp -r /usr/lib/perl5/core_perl/* staging_dir/hostpkg/usr/lib/perl5/5.38.2/ && \
 PERL5LIB=/workdir/openwrt/staging_dir/hostpkg/usr/lib/perl5/5.38.2/ make package/feeds/packages/perl/compile && \
-make package/feeds/packages/nghttp2/compile && make ~/openwrt/package/feeds/packages/nghttp3/compile && \
+make package/feeds/packages/nghttp2/compile && make package/feeds/packages/nghttp3/compile && \
 make ~/openwrt/package/feeds/packages/ngtcp2/compile && \
 make ~/openwrt/package/feeds/packages/curl/compile
 ```
