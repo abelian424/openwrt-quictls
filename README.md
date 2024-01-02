@@ -12,3 +12,5 @@ make ~/openwrt/package/feeds/packages/ngtcp2/compile && \
 make ~/openwrt/package/feeds/packages/curl/compile
 ```
 Do another `make` and, if there are no issues with your selection of packages, everything should compile successfully.
+
+UPDATE: This repo is not intended for use in production environments. If you want to build quictls and libcurl with http/3 support, follow this guide: https://docs.openwrt.melmac.net/curl/
